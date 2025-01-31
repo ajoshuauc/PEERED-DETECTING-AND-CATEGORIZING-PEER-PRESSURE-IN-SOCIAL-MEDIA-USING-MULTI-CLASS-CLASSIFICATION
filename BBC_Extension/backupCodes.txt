@@ -1,0 +1,704 @@
+(() => {
+
+// Example function to censor specific text content
+function censorFacebookText() {
+    // Find all div elements with the attribute 'dir="auto"' and style 'text-align: start'
+    const element = document.querySelector('div[dir="auto"][style="text-align: start;"]');
+
+    const element2 = document.querySelector('div[dir="auto"][style="text-align:start"]');
+    
+    if (element) {
+
+        element.forEach(div => {
+            const element2 = div.innerText;
+    
+            // Check for the specific text you want to censor
+            if (element2.includes("How about that for a Dubs' debut")) {
+                div.innerHTML = "Censored Content"; // Replace the text with 'Censored Content'
+            }
+        })
+
+    } 
+    
+    if (element2) {
+
+        element2.forEach(div => {
+            const element2 = div.innerText;
+    
+            // Check for the specific text you want to censor
+            if (element2.includes("How about that for a Dubs' debut")) {
+                div.innerHTML = "Censored Content"; // Replace the text with 'Censored Content'
+            }
+        })
+
+    }
+
+}
+
+// Initial censoring when the page loads
+censorFacebookText();
+
+// Use a MutationObserver to detect dynamic content changes (Facebook loads content dynamically)
+const observer = new MutationObserver(censorFacebookText);
+observer.observe(document.body, { childList: true, subtree: true });
+
+
+})()
+
+(() => {
+
+// Example function to censor specific text content
+function censorFacebookText() {
+    // Find all div elements with the attribute 'dir="auto"' and style 'text-align: start'
+    const element = document.querySelector('div[dir="auto"][style="text-align: start;"]');
+
+    const element2 = document.querySelector('div[dir="auto"][style="text-align:start"]');
+
+    
+    if (element) {
+
+        element.forEach(div => {
+            const elementCensored = div.innerText;
+    
+            // Check for the specific text you want to censor
+            elementCensored.innerHTML = "Censored Content"; // Replace the text with 'Censored Content'
+        })
+
+    } 
+    
+    if (element2) {
+
+        element2.forEach(div => {
+            const element2Censored = div.innerText;
+    
+            // Check for the specific text you want to censor
+            element2Censored.innerHTML = "Censored Content"; // Replace the text with 'Censored Content'
+
+        })
+
+    }
+
+}
+
+// Initial censoring when the page loads
+censorFacebookText();
+
+// Use a MutationObserver to detect dynamic content changes (Facebook loads content dynamically)
+const observer = new MutationObserver(censorFacebookText);
+observer.observe(document.body, { childList: true, subtree: true });
+
+})()
+
+(() => {
+
+// Function to censor content by checking for both style variations
+function censorFacebookText() {
+    // Define selectors for both variations of the style attribute
+    const element1 = document.querySelectorAll('div[dir="auto"][style*="text-align: start;"]');
+    const element2 = document.querySelectorAll('div[dir="auto"][style*="text-align:start"]');
+    
+    let textContent = '';
+
+    // Loop through all matched elements for the first style
+    element1.forEach((el) => {
+        textContent += el.textContent.trim() + ' ';
+        // Optional: apply censoring logic here (e.g., replace certain words or phrases)
+        el.textContent = "CENSORED";  // Replace content with "CENSORED" as an example
+    });
+
+    // Loop through all matched elements for the second style
+    element2.forEach((el) => {
+        textContent += el.textContent.trim() + ' ';
+        // Optional: apply censoring logic here
+        el.textContent = "CENSORED";  // Replace content with "CENSORED" as an example
+    });
+
+    if (textContent.trim()) {
+        console.log("Censored text: " + textContent.trim());
+    } else {
+        console.log("No matching elements found.");
+    }
+}
+
+// Initialize the MutationObserver to watch for changes in the DOM
+const observer = new MutationObserver((mutationsList, observer) => {
+    mutationsList.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+            censorFacebookText();  // Call the censoring function whenever new posts are added
+        }
+    });
+});
+
+// Start observing changes to the entire document body or a specific container
+observer.observe(document.body, { 
+    childList: true,      // Look for added or removed child elements
+    subtree: true         // Monitor the entire subtree, including posts
+});
+
+// Initial call to censor existing content
+censorFacebookText();
+
+})()
+
+.spoiler {
+    background-color: #333; /* Dark background to obscure the text */
+    color: transparent;     /* Makes text invisible */
+    cursor: pointer;        /* Indicates that the text is clickable */
+    border-radius: 4px;     /* Optional: Rounded corners for style */
+    padding: 2px 5px;       /* Padding for text within the tag */
+    transition: color 0.3s ease; /* Smooth transition for reveal */
+    user-select: none; 
+}
+
+.spoiler.revealed {
+    color: white;           /* Reveals text on click */
+    user-select: text; 
+}
+
+/* Censor styling for images */
+.image-censored::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    filter: blur(10px);
+    transition: filter 0.3s ease;
+    cursor: pointer;
+}
+.image-censored.revealed::after {
+    filter: none;
+}
+
+.spoiler {
+    background-color: #333;
+    color: transparent;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 2px 5px;
+    position: relative;
+}
+
+function censorFacebookImage () {
+    // Select all div elements with style containing "padding-top: calc(100%)"
+    const divElements = document.querySelectorAll('div[style="height: 100%; left: 0%; width: calc(100%);"]');
+        
+
+    divElements.forEach(divElement => {
+        const image = divElement.querySelector('img');
+    
+        // // Ensure image is not an emoji or some other type of unwanted image
+        // if (image && image.width > 20 && image.height > 20) {
+        // // Send the image URL to the background script
+        // chrome.runtime.sendMessage({ type: 'IMAGE_URL', src: image.src });
+
+        // }
+
+        //Censoring Logic
+        image.classList.add("blurred");
+
+        image.addEventListener('click', () => {
+            image.classList.toggle("unblurred"); // Toggle the unblurred class on click
+        });
+        
+    });
+
+};
+
+
+function censorFacebookImage() {
+    // Select all div elements with the specified inline style
+    const images = document.querySelectorAll('img');
+
+    images.forEach(image => {
+        // Ensure the image meets criteria to avoid emojis or other small images
+        if (image && image.width > 20 && image.height > 20) {
+            // Apply blur effect to the image
+            image.classList.add("blurred");
+
+            // Create the unblur button
+            const button = document.createElement("button");
+            button.innerText = "Unblur";
+            button.classList.add("unblur-btn");
+
+            // //Check if button was created successfully
+            // console.log("Adding button to div element:", divElement, "Button:", button);
+
+            // Set the parent div to relative positioning
+            image.parentElement.style.position = "relative"; // Ensure parent container allows absolute positioning
+            image.parentElement.appendChild(button);
+
+            // Add click event to toggle the blur
+            button.addEventListener('click', () => {
+                image.classList.toggle("unblurred");
+                button.innerText = image.classList.contains("unblurred") ? "Blur" : "Unblur";
+            });
+        }
+    });
+}
+
+
+// Initialize the MutationObserver to watch for changes in the DOM
+const observer = new MutationObserver((mutationsList, observer) => {
+    mutationsList.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+            // Call the censoring function whenever new posts are added
+            censorFacebookText();  
+            censorFacebookImage();
+        }
+    });
+});
+
+// Start observing changes to the entire document body or a specific container
+observer.observe(document.body, { 
+    childList: true,      // Look for added or removed child elements
+    subtree: true         // Monitor the entire subtree, including posts
+});
+
+
+// Function to censor content by checking for both style variations
+function censorFacebookText() {
+    // Define selectors for both variations of the style attribute
+    const element1 = document.querySelectorAll('div[dir="auto"][style*="text-align: start;"]');
+    const element2 = document.querySelectorAll('div[dir="auto"][style*="text-align:start"]');
+    
+    let textContent = '';
+
+    // Loop through all matched elements for the first style
+    element1.forEach((el) => {
+        textContent += el.textContent.trim() + ' ';
+        //Apply censoring logic
+
+            el.classList.add("spoiler");
+            setTooltipText(el, "message1");
+
+            el.addEventListener('click', () => {
+                el.classList.toggle("revealed");
+            });
+
+    });
+
+    // Loop through all matched elements for the second style
+    element2.forEach((el) => {
+        textContent += el.textContent.trim() + ' ';
+        //Apply censoring logic
+
+            el.classList.add("spoiler");
+            setTooltipText(el, "message2")
+
+            el.addEventListener('click', () => {
+                el.classList.toggle("revealed");
+            });
+        
+    });
+
+    // if (textContent.trim()) {
+    //     console.log("Censored text: " + textContent.trim());
+    // } else {
+    //     console.log("No matching elements found.");
+    // }
+
+}
+
+
+// (() => {
+//     // Function to add "spoiler" class and handle click to toggle reveal
+//     function applyCensorship(el) {
+//         if (!el.classList.contains('spoiler')) {
+//             el.classList.add("spoiler");
+//         }
+//     }
+
+//     // Function to censor content in newly added elements
+//     function censorFacebookText(mutationsList) {
+//         mutationsList.forEach((mutation) => {
+//             mutation.addedNodes.forEach((node) => {
+//                 if (node.nodeType === 1) { // Process only element nodes
+//                     const isTarget = node.matches && (
+//                         node.matches('div[dir="auto"][style*="text-align: start;"]') ||
+//                         node.matches('div[dir="auto"][style*="text-align:start"]')
+//                     );
+
+//                     if (isTarget) {
+//                         applyCensorship(node);
+//                     }
+
+//                     // Also check children of the added node
+//                     node.querySelectorAll &&
+//                         node.querySelectorAll('div[dir="auto"][style*="text-align: start;"], div[dir="auto"][style*="text-align:start"]').forEach(applyCensorship);
+//                 }
+//             });
+//         });
+//     }
+
+//     // Initialize the MutationObserver to watch for changes in the DOM
+//     const observer = new MutationObserver((mutationsList) => censorFacebookText(mutationsList));
+
+//     // Start observing changes to the entire document body or a specific container
+//     observer.observe(document.body, {
+//         childList: true,  // Look for added or removed child elements
+//         subtree: true     // Monitor the entire subtree, including posts
+//     });
+
+//     // Event delegation for toggling reveal on click
+//     document.addEventListener('click', (e) => {
+//         if (e.target.classList.contains('spoiler')) {
+//             e.target.classList.toggle("revealed");
+//         }
+//     });
+
+//     // Initial call to censor existing content
+//     censorFacebookText([{ addedNodes: document.body.children }]);
+
+// })();
+
+
+
+!!!!
+
+(() => {
+
+    const messagesText = {
+        message1: "This text exhibits a indirect, negative and verbal peer pressure.",
+        message2: "This text exhibits a indirect, negative and non-verbal peer pressure.",
+        message3: "This text exhibits a direct, negative and verbal peer pressure.",
+        message4: "This text exhibits a direct, negative and non-verbal peer pressure."
+    }
+    
+    const messagesImage = {
+        message1: "This image exhibits a indirect, negative and verbal peer pressure.",
+        message2: "This image exhibits a indirect, negative and non-verbal peer pressure.",
+        message3: "This image exhibits a direct, negative and verbal peer pressure.",
+        message4: "This image exhibits a direct, negative and non-verbal peer pressure."
+    }
+    
+    function injectCSStoX() {
+        const domain = window.location.hostname;
+        if (domain.includes("x.com")) {
+            const style = document.createElement('style');
+            style.innerHTML = `
+                .spoiler {
+                    background-color: #333;
+                    color: transparent;
+                    cursor: pointer;
+                    border-radius: 4px;
+                    padding: 2px 5px;
+                    position: relative;
+                    transition: color 0.3s ease, background-color 0.3s ease;
+                }
+    
+                .spoiler::after {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    bottom: 100%;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background-color: #000;
+                    color: #fff;
+                    padding: 5px;
+                    border-radius: 3px;
+                    white-space: nowrap;
+                    font-size: 12px;
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    pointer-events: none;
+                }
+    
+                .spoiler:hover::after {
+                    opacity: 1;
+                }
+    
+                .spoiler.revealed {
+                    color: inherit;
+                    background-color: transparent;
+                }
+    
+                /* Blur effect for images */
+                .blurred {
+                    filter: blur(8px) !important;
+                    transition: filter 0.3s ease 3s !important;
+                    position: relative !important;
+                }
+    
+                .blurred:hover {
+                    filter: none !important;
+                    transition-delay: 3s !important;
+                }   
+    
+                /* Centered tooltip message on blurred images */
+                .blurred::before {
+                    content: attr(data-tooltip);
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: rgba(0, 0, 0, 0.7);
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    text-align: center;
+                    opacity: 1;
+                    white-space: nowrap;
+                }
+    
+                .blurred:hover::before {
+                    display: none;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    }
+    
+    // Function to set the tooltip based on a specific condition
+    function setTooltipText(el, condition) {
+        let tooltipMessage = messagesText[condition];
+        el.setAttribute("data-tooltip", tooltipMessage);
+    }
+    
+    function setTooltipImage(image, condition) {
+        let tooltipMessage = messagesImage[condition];
+        image.title = tooltipMessage;
+    }
+    
+    // Function to censor content by checking for both style variations
+    function censorFacebookText() {
+        // Define selectors for both variations of the style attribute
+        const element1 = document.querySelectorAll('div[dir="auto"][style*="text-align: start;"]');
+        const element2 = document.querySelectorAll('div[dir="auto"][style*="text-align:start"]');
+        
+        let textContent = '';
+    
+        // Loop through all matched elements for the first style
+        element1.forEach((el) => {
+            //console.log(el.textContent)
+
+            textContent += el.textContent.trim() + ' ';
+            el.classList.add("spoiler");
+            setTooltipText(el, "message1");
+    
+            el.addEventListener('click', () => {
+                el.classList.toggle("revealed");
+            });
+        });
+    
+        // Loop through all matched elements for the second style
+        element2.forEach((el) => {
+            //console.log(el.textContent)
+
+            textContent += el.textContent.trim() + ' ';
+            el.classList.add("spoiler");
+            setTooltipText(el, "message2")
+    
+            el.addEventListener('click', () => {
+                el.classList.toggle("revealed");
+            });
+        });
+    }
+
+    // function censorFacebookText() {
+    //     // Select all span elements
+    //     const spanElements = document.querySelectorAll('span');
+    //     let textContent = "";
+    
+    //     spanElements.forEach(span => {
+    //         // Get all attributes of the current span element
+    //         const attributes = Array.from(span.attributes).map(attr => attr.name);
+    
+    //         // Check if it has only 'class' and 'dir' attributes
+    //         if (attributes.length === 2 && attributes.includes('class') && attributes.includes('dir')) {
+    //             // Add the span's text content to textContent
+    //             textContent += span.textContent.trim() + ' ';
+                
+    //             // Add the "spoiler" class and tooltip to the span
+    //             span.classList.add("spoiler");
+    //             setTooltipText(span, "message2");
+    
+    //             // Add click event to toggle the "revealed" class
+    //             span.addEventListener('click', () => {
+    //                 span.classList.toggle("revealed");
+    //             });
+    //         }
+    //     });
+    // }
+    
+        
+    // Censor Facebook Images
+    function censorFacebookImage() {
+        const divElements = document.querySelectorAll('div[style*="height:"][style*="left:"][style*="width:"]');
+    
+        divElements.forEach(divElement => {
+            const image = divElement.querySelector('img');
+            //console.log(image.src)
+    
+            if (image && image.width > 20 && image.height > 20) {
+                image.className = 'blurred'
+                setTooltipImage(image, "message2")
+            }
+        });
+    }
+    
+    function censorXText() {
+        const elements = document.querySelectorAll('div[data-testid="tweetText"]');
+    
+        const processedTexts = new Set();
+    
+        elements.forEach((element) => {
+            const text = element.querySelector('span');
+            //console.log(text.innerText)
+
+            if (text && !processedTexts.has(text)) {
+                processedTexts.add(text);
+                text.classList.add("spoiler");
+                setTooltipText(text, "message1");
+    
+                text.addEventListener('click', () => {
+                    text.classList.toggle("revealed");
+                });
+            }
+        });
+    }
+    
+    // Censor X Images
+    function censorXImage() {
+        const images = document.querySelectorAll('img[alt="Image"]');
+    
+        images.forEach(image => {
+            //console.log(image.src)
+            image.className = 'blurred';
+            setTooltipImage(image, "message2")
+            
+        });
+    }
+
+    let observer;
+
+    function enableExtension() {
+        console.log("Extension enabled in content script");
+
+        // Initialize the MutationObserver to watch for changes in the DOM
+        observer = new MutationObserver((mutationsList) => {
+            mutationsList.forEach((mutation) => {
+                if (mutation.type === 'childList') {
+                    const domain = window.location.hostname;
+
+                    if (domain.includes("facebook.com")) {
+                        censorFacebookText();
+                        censorFacebookImage();
+                    } else if (domain.includes("x.com")) {
+                        censorXText();
+                        censorXImage();
+                    }
+                }
+            });
+        });
+
+        // Start observing changes to the entire document body
+        observer.observe(document.body, { 
+            childList: true,
+            subtree: true
+        });
+
+        // Initial call to censor existing content
+        const domain = window.location.hostname;
+        if (domain.includes("facebook.com")) {
+            censorFacebookText();
+            censorFacebookImage();
+        } else if (domain.includes("x.com")) {
+            injectCSStoX();
+            censorXText();
+            censorXImage();
+        }
+    }
+
+    function disableExtension() {
+        console.log("Extension disabled in content script");
+
+        // Disconnect the observer to stop functionality
+        if (observer) observer.disconnect();
+    }
+
+    // Check the saved toggle state on initial load
+    chrome.storage.sync.get(['toggleEnabled'], (result) => {
+        if (result.toggleEnabled) {
+            enableExtension();
+        }
+    });
+
+    // Listen for toggle state messages from the background script
+    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+        if (message.toggleEnabled !== undefined) {
+            if (message.toggleEnabled) {
+                enableExtension();
+            } else {
+                disableExtension();
+            }
+        }
+    });
+
+    
+})();    
+
+
+  // async function censorXText() {
+    //     const elements = document.querySelectorAll('div[data-testid="tweetText"] span:not(.processed)');
+
+    //     for (const el of elements) {
+    //         if (processedElements.has(el)) continue; // Skip if already processed
+
+    //         processedElements.add(el); // Mark as processed
+    //         const text = el.innerText;
+    //         console.log(text);
+
+    //         try {
+    //             // const result = await sendDataToBackground("SEND_DATA_TEXT", { text });
+    //             // if (result === 'NEGATIVE') {
+    //             //     el.classList.add("spoiler");
+    //             //     el.setAttribute("data-tooltip", "This text exhibits indirect, negative, and verbal peer pressure.");
+    //             //     el.addEventListener("click", () => el.classList.toggle("revealed"));
+    //             // }
+    //         } catch (error) {
+    //             console.error("Error censoring text:", error);
+    //         }
+    //     }
+    // }
+
+
+     async function censorXText() {
+        const elements = document.querySelectorAll('div[data-testid="tweetText"]:not(.processed)');
+    
+        for (const el of elements) {
+            if (processedElements.has(el)) continue; // Skip if already processed
+    
+            processedElements.add(el); // Mark as processed
+            el.classList.add('processed');
+    
+            const text = el.innerText;
+    
+            try {
+                // Call the API directly
+                const response = await fetch("https://peeredfast.ngrok.app/text/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ text })
+                });
+    
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                const result = await response.json();
+    
+                // Process response
+                console.log("API Response:", result);
+                if (result.text_label === "NEGATIVE") {
+                    el.classList.add("spoiler");
+                    setTooltipText(el);
+                    el.addEventListener("click", () => el.classList.toggle("revealed"));
+                }
+            } catch (error) {
+                console.error("Error in censorXText:", error);
+            }
+        }
+    }
